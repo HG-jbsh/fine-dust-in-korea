@@ -8,7 +8,6 @@ import plotly.express as px
 import requests
 from urllib.parse import unquote
 
-# 인코딩된 키라면 한 번 풀어서(unquote) 사용하는 것이 안전합니다.
 # 기존 코드 대신 아래처럼 .strip()을 붙여보세요.
 raw_key = "431d8a7111c92b687de7283810ab476b8d0c490dbf86be618cf4d2117ef89f9c"
 SERVICE_KEY = raw_key.strip() # 앞뒤의 보이지 않는 공백을 강제로 지워줍니다.
