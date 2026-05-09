@@ -3,8 +3,12 @@ import requests
 import pandas as pd
 import plotly.express as px
 
-# 1. API 설정
-SERVICE_KEY = '431d8a7111c92b687de7283810ab476b8d0c490dbf86be618cf4d2117ef89f9c' # 발급받은 Decoding 인증키 입력
+import requests
+from urllib.parse import unquote
+
+# 인코딩된 키라면 한 번 풀어서(unquote) 사용하는 것이 안전합니다.
+raw_key = "	431d8a7111c92b687de7283810ab476b8d0c490dbf86be618cf4d2117ef89f9c"
+SERVICE_KEY = unquote(raw_key) # 발급받은 Decoding 인증키 입력
 URL = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty'
 
 def get_air_quality(sido_name):
