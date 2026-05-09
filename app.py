@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 
 # 1. API 설정
-SERVICE_KEY = '8a4edeedbcb75d75a704e7153881a3e5540070c2cff8f9ed23084f2303f224eb' # 발급받은 Decoding 인증키 입력
+SERVICE_KEY = '431d8a7111c92b687de7283810ab476b8d0c490dbf86be618cf4d2117ef89f9c' # 발급받은 Decoding 인증키 입력
 URL = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty'
 
 def get_air_quality(sido_name):
