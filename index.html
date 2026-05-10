@@ -3,101 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>전국 실시간 대기질 현황</title>
-    <!-- Google Sans 스타일의 깔끔한 폰트 적용 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>전국 미세먼지 실시간 현황</title>
+    <!-- Plotly.js 라이브러리 (그래프 출력용) -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
         body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Malgun Gothic', dotum, sans-serif;
+            background-color: #f4f7f9;
             margin: 0;
             padding: 20px;
-            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
+            width: 90%;
+            max-width: 1200px;
+            background: white;
+            padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        th {
-            background-color: #34495e;
-            color: white;
-            padding: 12px;
-            font-weight: 700;
-        }
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-            text-align: center;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        /* 농도에 따른 상태 색상 */
-        .status-good { color: #3498db; font-weight: bold; } /* 좋음: 파랑 */
-        .status-normal { color: #2ecc71; font-weight: bold; } /* 보통: 초록 */
-        .status-bad { color: #f39c12; font-weight: bold; } /* 나쁨: 주황 */
-        .status-very-bad { color: #e74c3c; font-weight: bold; } /* 매우나쁨: 빨강 */
-        
-        .update-time {
+        h1 { color: #333; text-align: center; }
+        .info {
             text-align: right;
+            color: #666;
             font-size: 0.9em;
-            color: #7f8c8d;
             margin-bottom: 10px;
+        }
+        #chart {
+            width: 100%;
+            height: 600px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>전국 실시간 미세먼지 현황</h1>
+    <h1>전국 미세먼지(PM10) 실시간 모니터링</h1>
+    <div class="info">이 사이트는 GitHub Actions를 통해 매시간 자동 업데이트됩니다.</div>
     
-    {% if items %}
-    <p class="update-time">최근 업데이트: {{ items[0].dataTime }}</p>
-    <table>
-        <thead>
-            <tr>
-                <th>지역</th>
-                <th>측정소</th>
-                <th>미세먼지(PM10)</th>
-                <th>초미세먼지(PM2.5)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in items %}
-            <tr>
-                <td><strong>{{ item.sidoName }}</strong></td>
-                <td>{{ item.stationName }}</td>
-                
-                {# PM10 수치에 따른 색상 분기 처리 #}
-                <td class="{% if item.pm10Value|int <= 30 %}status-good{% elif item.pm10Value|int <= 80 %}status-normal{% elif item.pm10Value|int <= 150 %}status-bad{% else %}status-very-bad{% endif %}">
-                    {{ item.pm10Value if item.pm10Value else '-' }} ㎍/㎥
-                </td>
-
-                {# PM2.5 수치에 따른 색상 분기 처리 #}
-                <td class="{% if item.pm25Value|int <= 15 %}status-good{% elif item.pm25Value|int <= 35 %}status-normal{% elif item.pm25Value|int <= 75 %}status-bad{% else %}status-very-bad{% endif %}">
-                    {{ item.pm25Value if item.pm25Value else '-' }} ㎍/㎥
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-    <p style="text-align: center;">데이터를 불러올 수 없습니다. API 키를 확인해주세요.</p>
-    {% endif %}
+    <!-- 파이썬(Plotly)이 생성한 그래프가 들어갈 자리 -->
+    <div id="chart">
+        <p style="text-align: center; padding-top: 200px; color: #999;">
+            데이터를 불러오는 중입니다... <br>
+            (GitHub Actions가 처음 실행되면 그래프가 나타납니다)
+        </p>
+    </div>
 </div>
 
 </body>
