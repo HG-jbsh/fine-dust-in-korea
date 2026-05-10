@@ -3,52 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>전북 미세먼지 정보</title>
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-
-        table {
-            margin: auto;
-            border-collapse: collapse;
-            width: 70%;
-            background: white;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        h1 {
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>전북 실시간 미세먼지 정보</h1>
+    <button onclick="loadData()">데이터 불러오기</button>
 
     <table>
-        <tr>
-            <th>측정소</th>
-            <th>PM10</th>
-            <th>PM2.5</th>
-        </tr>
-
-        {% for station in stations %}
-        <tr>
-            <td>{{ station.name }}</td>
-            <td>{{ station.pm10 }}</td>
-            <td>{{ station.pm25 }}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <tr>
+                <th>측정소</th>
+                <th>PM10</th>
+                <th>PM2.5</th>
+            </tr>
+        </thead>
+        <tbody id="data"></tbody>
     </table>
+
+    <script src="script.js"></script>
 </body>
 </html>
