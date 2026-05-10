@@ -2,55 +2,53 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>전국 미세먼지 실시간 현황</title>
-    <!-- Plotly.js 라이브러리 (그래프 출력용) -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>전북 미세먼지 정보</title>
     <style>
         body {
-            font-family: 'Malgun Gothic', dotum, sans-serif;
-            background-color: #f4f7f9;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f4f4;
         }
-        .container {
-            width: 90%;
-            max-width: 1200px;
+
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 70%;
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        h1 { color: #333; text-align: center; }
-        .info {
-            text-align: right;
-            color: #666;
-            font-size: 0.9em;
-            margin-bottom: 10px;
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
         }
-        #chart {
-            width: 100%;
-            height: 600px;
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        h1 {
+            color: #333;
         }
     </style>
 </head>
 <body>
+    <h1>전북 실시간 미세먼지 정보</h1>
 
-<div class="container">
-    <h1>전국 미세먼지(PM10) 실시간 모니터링</h1>
-    <div class="info">이 사이트는 GitHub Actions를 통해 매시간 자동 업데이트됩니다.</div>
-    
-    <!-- 파이썬(Plotly)이 생성한 그래프가 들어갈 자리 -->
-    <div id="chart">
-        <p style="text-align: center; padding-top: 200px; color: #999;">
-            데이터를 불러오는 중입니다... <br>
-            (GitHub Actions가 처음 실행되면 그래프가 나타납니다)
-        </p>
-    </div>
-</div>
+    <table>
+        <tr>
+            <th>측정소</th>
+            <th>PM10</th>
+            <th>PM2.5</th>
+        </tr>
 
+        {% for station in stations %}
+        <tr>
+            <td>{{ station.name }}</td>
+            <td>{{ station.pm10 }}</td>
+            <td>{{ station.pm25 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
