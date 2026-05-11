@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>지역별 미세먼지 금속성분 모니터링</title>
+  <title>1416현겸 | 지역별 미세먼지 금속성분 모니터링</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -25,6 +25,13 @@
       text-align: center;
       margin-top: 0;
       color: #263645;
+    }
+    /* 1416현겸 강조 스타일 */
+    .brand {
+      color: #2878c8;
+      font-size: 0.9em;
+      display: block;
+      margin-bottom: 5px;
     }
     .subtitle {
       text-align: center;
@@ -131,7 +138,10 @@
 </head>
 <body>
 <div class="container">
-  <h1>지역별 미세먼지 금속성분 모니터링</h1>
+  <h1>
+    <span class="brand">1416현겸</span>
+    지역별 미세먼지 금속성분 모니터링
+  </h1>
   <p class="subtitle">
     공공데이터포털 API를 활용하여 지역별 미세먼지 금속성분 데이터를 표시합니다.
   </p>
@@ -143,7 +153,6 @@
       <option value="RH24">24시간 평균</option>
     </select>
     <button onclick="loadData()">데이터 조회</button>
-    
   </div>
 
   <div id="message" class="banner info">
@@ -153,6 +162,7 @@
   <div id="dataArea" class="grid"></div>
 
   <div class="source">
+    운영 및 관리: <strong>1416현겸</strong><br>
     활용 API: 공공데이터포털 「기후에너지환경부 국립환경과학원_미세먼지(금속성분) 실시간 정보」<br>
     지역별 금속성분 데이터를 종합하여 화면에 표시
   </div>
@@ -289,7 +299,7 @@
     area.innerHTML = "";
 
     if (onlyEstimate) {
-      setMessage("지역별 데이터를 표시하고 있습니다.", "warn");
+      setMessage("1416현겸 모니터링 시스템: 지역별 데이터를 표시하고 있습니다.", "warn");
     }
 
     dataList.forEach(data => {
@@ -307,7 +317,7 @@
       });
 
       const badgeClass = data.source === "real" ? "badge real" : "badge";
-      const badgeText = data.source === "real" ? "실시간 데이터" : "실시간 데이터";
+      const badgeText = data.source === "real" ? "실시간 데이터" : "예측 데이터";
 
       card.innerHTML = `
         <h3>${data.station}</h3>
@@ -329,7 +339,7 @@
       return;
     }
 
-    setMessage("공공데이터 API 호출 중입니다...", "info");
+    setMessage("1416현겸 시스템: 공공데이터 API 호출 중입니다...", "info");
     document.getElementById("dataArea").innerHTML = "";
 
     const params = new URLSearchParams({
@@ -364,9 +374,9 @@
         const merged = mergeRealAndEstimated(realList);
 
         if (realList.length > 0) {
-          setMessage("실시간 데이터가 있는 지역은 실제값으로, 없는 지역은 임의 추정값으로 보완했습니다.", "info");
+          setMessage("1416현겸: 실시간 데이터가 있는 지역은 실제값으로, 없는 지역은 임의 추정값으로 보완했습니다.", "info");
         } else {
-          setMessage("지역별 데이터를 성공적으로 불러왔습니다.", "warn");
+          setMessage("1416현겸: 지역별 데이터를 성공적으로 불러왔습니다.", "warn");
         }
 
         renderCards(merged, false);
@@ -376,7 +386,7 @@
       }
     }
 
-    setMessage("일부 데이터를 불러오는 중 문제가 발생했지만 화면 표시를 완료했습니다.<br>오류 내용: " + lastError, "warn");
+    setMessage("1416현겸 시스템 안내: 일부 데이터를 불러오는 중 문제가 발생했지만 화면 표시를 완료했습니다.<br>오류 내용: " + lastError, "warn");
     renderCards(makeEstimatedData(), false);
   }
 
