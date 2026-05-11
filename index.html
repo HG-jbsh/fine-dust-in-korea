@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>지역별 미세먼지 금속성분 모니터링</title>
+  <title>1416현겸 - 지역별 미세먼지 금속성분 모니터링</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -25,6 +25,13 @@
       text-align: center;
       margin-top: 0;
       color: #263645;
+    }
+    /* 1416현겸 강조 스타일 */
+    .brand-name {
+      color: #2878c8;
+      font-size: 0.8em;
+      display: block;
+      margin-bottom: 5px;
     }
     .subtitle {
       text-align: center;
@@ -131,7 +138,7 @@
 </head>
 <body>
 <div class="container">
-  <h1>지역별 미세먼지 금속성분 모니터링</h1>
+  <h1><span class="brand-name">1416현겸</span>지역별 미세먼지 금속성분 모니터링</h1>
   <p class="subtitle">
     공공데이터포털 API를 활용하여 지역별 미세먼지 금속성분 데이터를 표시합니다.
   </p>
@@ -143,7 +150,6 @@
       <option value="RH24">24시간 평균</option>
     </select>
     <button onclick="loadData()">데이터 조회</button>
-    
   </div>
 
   <div id="message" class="banner info">
@@ -153,7 +159,7 @@
   <div id="dataArea" class="grid"></div>
 
   <div class="source">
-    활용 API: 공공데이터포털 「기후에너지환경부 국립환경과학원_미세먼지(금속성분) 실시간 정보」<br>
+    운영: 1416현겸 | 활용 API: 공공데이터포털 「기후에너지환경부 국립환경과학원_미세먼지(금속성분) 실시간 정보」<br>
     지역별 금속성분 데이터를 종합하여 화면에 표시
   </div>
 </div>
