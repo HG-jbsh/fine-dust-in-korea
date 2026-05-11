@@ -1,278 +1,84 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>1416현겸 - 미세먼지 금속성분 모니터링</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, "맑은 고딕", sans-serif;
-      background: #eef3f7;
-      color: #222;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 0; /* 헤더 강조를 위해 패딩 조정 */
-      border-radius: 14px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-      overflow: hidden;
-    }
-    /* 학번/이름 강조 헤더 영역 */
-    .admin-header {
-      background: #2878c8;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    .admin-header .id-name {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 5px 15px;
-      border-radius: 50px;
-      font-weight: bold;
-      font-size: 1.1em;
-      margin-bottom: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-    }
-    .admin-header h1 {
-      margin: 0;
-      font-size: 24px;
-      letter-spacing: -0.5px;
-    }
-
-    .content-body {
-      padding: 24px;
-    }
-    .subtitle {
-      text-align: center;
-      color: #606f7b;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-    .controls {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 14px;
-      margin-bottom: 18px;
-      background: #f8fafc;
-      border: 1px solid #dce5ee;
-      border-radius: 10px;
-    }
-    input, select, button {
-      padding: 10px 12px;
-      border-radius: 7px;
-      border: 1px solid #ccd6dd;
-      font-size: 15px;
-    }
-    button {
-      background: #2878c8;
-      color: white;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    button:hover { background: #1f5f9e; }
-    
-    .banner {
-      padding: 14px;
-      border-radius: 9px;
-      text-align: center;
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-    .info { background: #eef7ff; border: 1px solid #b8dcff; color: #22445f; }
-    .warn { background: #fff8e6; border: 1px solid #ffd77a; color: #6a4a00; }
-    
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
-    }
-    .card {
-      background: #ffffff;
-      border: 1px solid #e3e8ef;
-      border-left: 6px solid #e74c3c;
-      border-radius: 10px;
-      padding: 16px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-    }
-    .card.real { border-left-color: #1f9d55; }
-    .card.estimate { border-left-color: #f59e0b; }
-    .card h3 { margin: 0 0 6px; color: #263645; }
-    
-    .badge {
-      display: inline-block;
-      font-size: 12px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      margin-bottom: 8px;
-      background: #dcfce7;
-      color: #166534;
-    }
-    .time { font-size: 13px; color: #6b7280; margin-bottom: 10px; }
-    .row {
-      display: flex;
-      justify-content: space-between;
-      padding: 7px 0;
-      border-top: 1px solid #edf1f5;
-    }
-    .label { color: #6b7280; }
-    .value { font-weight: bold; }
-    
-    .footer {
-      margin-top: 30px;
-      padding: 20px;
-      border-top: 1px solid #eee;
-      color: #666;
-      font-size: 13px;
-      text-align: center;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1416현겸 - 미세먼지 모니터링</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 20px; font-family: 'Malgun Gothic', sans-serif; background: #f0f4f8; }
+        .container { max-width: 1000px; margin: 0 auto; background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .header { background: #2c3e50; color: white; padding: 30px; text-align: center; }
+        .admin-badge { background: #3498db; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+        .controls { background: #f8f9fa; padding: 20px; display: flex; justify-content: center; gap: 10px; border-bottom: 1px solid #eee; flex-wrap: wrap; }
+        input, select, button { padding: 10px; border-radius: 5px; border: 1px solid #ddd; }
+        button { background: #3498db; color: white; border: none; cursor: pointer; font-weight: bold; padding: 10px 25px; }
+        button:hover { background: #2980b9; }
+        .status-msg { padding: 15px; text-align: center; font-weight: bold; }
+        .info { color: #3498db; background: #e8f4fd; }
+        .error { color: #e74c3c; background: #fdeaea; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 25px; }
+        .card { border: 1px solid #eee; border-radius: 12px; padding: 20px; border-top: 5px solid #3498db; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card h3 { margin-top: 0; color: #2c3e50; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; }
+        .data-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #eee; }
+        .label { color: #7f8c8d; font-size: 0.9em; }
+        .value { font-weight: bold; color: #2c3e50; }
+        .footer { text-align: center; padding: 20px; color: #95a5a6; font-size: 0.85em; }
+    </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="admin-header">
-    <div class="id-name">시스템 관리자: 1416현겸</div>
-    <h1>지역별 미세먼지 금속성분 실시간 모니터링</h1>
-  </div>
-
-  <div class="content-body">
-    <p class="subtitle">
-      공공데이터포털 API를 연동하여 전국 주요 거점의 금속 성분 농도를 조회합니다.
-    </p>
+    <div class="header">
+        <div class="admin-badge">SYSTEM ADMIN: 1416현겸</div>
+        <h1>전국 미세먼지 금속성분 모니터링</h1>
+    </div>
 
     <div class="controls">
-      <input type="date" id="dateInput">
-      <select id="timecode">
-        <option value="RH02">2시간 평균</option>
-        <option value="RH24">24시간 평균</option>
-      </select>
-      <button onclick="loadData()">데이터 조회하기</button>
+        <input type="date" id="dateInput">
+        <select id="timecode">
+            <option value="RH02">2시간 평균</option>
+            <option value="RH24">24시간 평균</option>
+        </select>
+        <button onclick="fetchData()">데이터 조회</button>
     </div>
 
-    <div id="message" class="banner info">
-      날짜를 선택하고 조회 버튼을 눌러주세요.
-    </div>
-
-    <div id="dataArea" class="grid">
-      </div>
+    <div id="message" class="status-msg info">날짜를 선택하고 조회 버튼을 누르세요.</div>
+    <div id="dataGrid" class="grid"></div>
 
     <div class="footer">
-      <strong>운영 및 관리: 1416현겸</strong><br>
-      데이터 출처: 환경부 국립환경과학원 (공공데이터포털)
+        © 2026 1416현겸. Data provided by National Institute of Environmental Research.
     </div>
-  </div>
 </div>
 
 <script>
-  // API 키 및 설정 (현겸님 제공 키 유지)
-  const API_KEY = "431d8a7111c92b687de7283810ab476b8d0c490dbf86be618cf4d2117ef89f9c";
-  
-  const STATIONS = [
-    ["1", "수도권"], ["2", "백령도"], ["3", "호남권"], ["4", "중부권"],
-    ["5", "제주권"], ["6", "영남권"], ["7", "경기권"], ["8", "충청권"],
-    ["9", "전북권"], ["10", "강원권"], ["11", "충북권"]
-  ];
+    const API_KEY = "431d8a7111c92b687de7283810ab476b8d0c490dbf86be618cf4d2117ef89f9c";
+    const STATIONS = {"1":"수도권","2":"백령도","3":"호남권","4":"중부권","5":"제주권","6":"영남권","7":"경기권","8":"충청권","9":"전북권","10":"강원권","11":"충북권"};
+    const ITEMS = {"90303":"납(Pb)","90304":"니켈(Ni)","90305":"망간(Mn)","90314":"아연(Zn)","90319":"칼슘(Ca)","90318":"칼륨(K)","90325":"황(S)"};
 
-  const ITEMS = {
-    "90303": "납(Pb)", "90304": "니켈(Ni)", "90305": "망간(Mn)",
-    "90314": "아연(Zn)", "90319": "칼슘(Ca)", "90318": "칼륨(K)", "90325": "황(S)"
-  };
+    async function fetchData() {
+        const date = document.getElementById('dateInput').value.replace(/-/g, '');
+        const time = document.getElementById('timecode').value;
+        const msgDiv = document.getElementById('message');
+        const grid = document.getElementById('dataGrid');
 
-  function setMessage(text, type) {
-    const msg = document.getElementById("message");
-    msg.className = "banner " + type;
-    msg.innerHTML = text;
-  }
+        if(!date) { alert("날짜를 선택하세요."); return; }
 
-  async function loadData() {
-    const date = document.getElementById("dateInput").value.replaceAll("-", "");
-    const timecode = document.getElementById("timecode").value;
+        msgDiv.className = "status-msg info";
+        msgDiv.innerText = "1416현겸 시스템이 데이터를 불러오는 중...";
+        grid.innerHTML = "";
 
-    if (!date) {
-      setMessage("날짜를 선택해 주세요.", "warn");
-      return;
-    }
+        const url = `https://apis.data.go.kr/1480523/MetalMeasuringResultService/MetalService?serviceKey=${API_KEY}&pageNo=1&numOfRows=100&resultType=JSON&date=${date}&timecode=${time}`;
 
-    setMessage("1416현겸 시스템이 API 데이터를 불러오고 있습니다...", "info");
-    const area = document.getElementById("dataArea");
-    area.innerHTML = "";
+        try {
+            const response = await fetch(url);
+            const json = await response.json();
+            const items = json.response?.body?.items?.item;
 
-    const url = `https://apis.data.go.kr/1480523/MetalMeasuringResultService/MetalService?ServiceKey=${API_KEY}&pageNo=1&numOfRows=100&resultType=JSON&date=${date}&timecode=${timecode}`;
+            if(!items || items.length === 0) {
+                msgDiv.className = "status-msg error";
+                msgDiv.innerText = `⚠️ ${date} 데이터가 없습니다. (업데이트 지연 혹은 키 오류)`;
+                return;
+            }
 
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      const items = data?.response?.body?.items?.item;
-
-      if (!items || items.length === 0) {
-        setMessage("해당 날짜에 조회된 데이터가 없습니다.", "warn");
-        return;
-      }
-
-      // 데이터 가공 (측정소별로 그룹화)
-      const grouped = {};
-      const stationMap = Object.fromEntries(STATIONS);
-
-      (Array.isArray(items) ? items : [items]).forEach(item => {
-        const sCode = String(item.stationcode);
-        if (!grouped[sCode]) {
-          grouped[sCode] = {
-            name: stationMap[sCode] || "알 수 없는 지역",
-            time: item.sdate,
-            values: []
-          };
-        }
-        grouped[sCode].values.push({
-          label: ITEMS[item.itemcode] || item.itemcode,
-          val: item.value
-        });
-      });
-
-      setMessage(`${date} 기준 실시간 데이터를 성공적으로 불러왔습니다.`, "info");
-
-      // 카드 렌더링
-      Object.values(grouped).forEach(st => {
-        const card = document.createElement("div");
-        card.className = "card real";
-        
-        let rows = st.values.map(v => `
-          <div class="row">
-            <span class="label">${v.label}</span>
-            <span class="value">${v.val} ng/m³</span>
-          </div>
-        `).join("");
-
-        card.innerHTML = `
-          <h3>${st.name}</h3>
-          <span class="badge">정상 수신</span>
-          <div class="time">측정: ${st.time}</div>
-          ${rows}
-        `;
-        area.appendChild(card);
-      });
-
-    } catch (e) {
-      setMessage("API 연결 오류가 발생했습니다. 키 유효성이나 네트워크를 확인하세요.", "warn");
-    }
-  }
-
-  // 초기 날짜 설정 (어제)
-  window.onload = () => {
-    const d = new Date();
-    d.setDate(d.getDate() - 1);
-    document.getElementById("dateInput").value = d.toISOString().slice(0, 10);
-  };
-</script>
-
-</body>
-</html>
+            msgDiv.innerText = `✅ ${date} 데이터 조회 성공!
